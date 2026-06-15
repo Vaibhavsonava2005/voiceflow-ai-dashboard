@@ -58,15 +58,17 @@ export function useDeepgram(): UseDeepgramReturn {
     try {
       const res = await fetch('/api/token');
       if (!res.ok) {
-        throw new Error('Failed to fetch temporary token');
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || `HTTP error! status: ${res.status}`);
       }
       const data = await res.json();
       if (!data.token) {
-        throw new Error('Token not received');
+        throw new Error('Token not received from backend');
       }
       token = data.token;
     } catch (e) {
-      setError('Failed to secure connection token. Make sure DEEPGRAM_API_KEY is configured on the backend.');
+      console.error("Deepgram token error:", e);
+      setError(`Failed to secure connection token: ${e instanceof Error ? e.message : 'Make sure DEEPGRAM_API_KEY is configured on Vercel.'}`);
       setConnectionStatus('error');
       return;
     }

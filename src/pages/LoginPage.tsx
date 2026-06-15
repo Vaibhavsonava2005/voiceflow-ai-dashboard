@@ -109,14 +109,15 @@ export default function LoginPage() {
             <div className="space-y-3">
               <label className="text-sm text-slate-600 dark:text-gray-400 font-medium tracking-wide" htmlFor="login-email">Email</label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-400 z-10" />
                 <input
                   id="login-email"
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="w-full pl-12 pr-4 py-4 rounded-xl bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all text-base"
+                  style={{ paddingLeft: '3.5rem' }}
+                  className="w-full pr-4 py-4 rounded-2xl bg-white/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all text-lg shadow-inner"
                   autoComplete="email"
                 />
               </div>
@@ -125,14 +126,15 @@ export default function LoginPage() {
             <div className="space-y-3 mt-6">
               <label className="text-sm text-slate-600 dark:text-gray-400 font-medium tracking-wide" htmlFor="login-password">Password</label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-400 z-10" />
                 <input
                   id="login-password"
                   type="password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-12 pr-4 py-4 rounded-xl bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all text-base"
+                  style={{ paddingLeft: '3.5rem' }}
+                  className="w-full pr-4 py-4 rounded-2xl bg-white/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all text-lg shadow-inner"
                   autoComplete="current-password"
                 />
               </div>
@@ -141,9 +143,9 @@ export default function LoginPage() {
             <motion.button
               type="submit"
               disabled={loading}
-              className="w-full mt-8 py-4 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-violet-600 text-slate-900 dark:text-white font-semibold flex items-center justify-center gap-2 hover:from-purple-500 hover:to-violet-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-purple-500/25 text-lg"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              className="w-full mt-8 py-5 px-6 rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 text-white font-bold flex items-center justify-center gap-3 hover:from-purple-500 hover:to-violet-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-[0_0_30px_rgba(168,85,247,0.3)] text-xl tracking-wide"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
             >
               {loading ? (
                 <motion.div

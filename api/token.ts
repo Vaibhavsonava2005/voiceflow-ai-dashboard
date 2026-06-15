@@ -1,6 +1,6 @@
 export async function GET(request: Request) {
   try {
-    const apiKey = process.env.DEEPGRAM_API_KEY;
+    const apiKey = process.env.DEEPGRAM_API_KEY || process.env.VITE_DEEPGRAM_API_KEY;
 
     if (!apiKey) {
       return new Response(JSON.stringify({ error: 'Deepgram API key not configured' }), {
