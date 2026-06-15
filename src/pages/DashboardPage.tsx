@@ -212,27 +212,37 @@ export default function DashboardPage() {
                   {!isListening ? (
                     <motion.button
                       onClick={handleStartListening}
-                      className="flex items-center gap-3 px-10 py-5 rounded-full bg-gradient-to-r from-purple-600 to-violet-600 text-slate-900 dark:text-white font-bold hover:from-purple-500 hover:to-violet-500 transition-all shadow-xl shadow-purple-500/30 text-xl tracking-wide"
+                      className="group relative flex items-center gap-4 px-12 py-6 rounded-full bg-gradient-to-r from-purple-600 to-violet-600 text-white font-black transition-all shadow-[0_0_40px_rgba(168,85,247,0.4)] hover:shadow-[0_0_60px_rgba(168,85,247,0.6)] text-2xl tracking-wide overflow-hidden"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <Mic className="w-7 h-7" />
-                      Start Listening
+                      {/* Sweep effect */}
+                      <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+                      
+                      <div className="relative flex items-center justify-center w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm">
+                        <Mic className="w-7 h-7 text-white" />
+                      </div>
+                      <span className="relative z-10">START LISTENING</span>
                     </motion.button>
                   ) : (
                     <motion.button
                       onClick={handleStopListening}
-                      className="flex items-center gap-3 px-10 py-5 rounded-full bg-gradient-to-r from-red-600 to-rose-600 text-slate-900 dark:text-white font-bold hover:from-red-500 hover:to-rose-500 transition-all shadow-xl shadow-red-500/30 text-xl tracking-wide"
+                      className="group relative flex items-center gap-4 px-12 py-6 rounded-full bg-gradient-to-r from-rose-600 to-red-600 text-white font-black transition-all shadow-[0_0_40px_rgba(225,29,72,0.4)] hover:shadow-[0_0_60px_rgba(225,29,72,0.6)] text-2xl tracking-wide overflow-hidden"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <MicOff className="w-7 h-7" />
-                      Stop Listening
+                      <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+
+                      <div className="relative flex items-center justify-center w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm">
+                        <MicOff className="w-7 h-7 text-white" />
+                      </div>
+                      <span className="relative z-10">STOP LISTENING</span>
+                      
                       {/* Pulse animation */}
                       <motion.div
-                        className="w-3 h-3 rounded-full bg-white ml-2"
-                        animate={{ scale: [1, 1.8, 1], opacity: [1, 0.4, 1] }}
-                        transition={{ duration: 1, repeat: Infinity }}
+                        className="absolute right-6 w-3 h-3 rounded-full bg-white"
+                        animate={{ scale: [1, 2, 1], opacity: [1, 0, 1] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
                       />
                     </motion.button>
                   )}
