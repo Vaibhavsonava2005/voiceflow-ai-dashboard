@@ -17,7 +17,8 @@ export async function GET(request: Request) {
     });
 
     if (!projectsResponse.ok) {
-      return new Response(JSON.stringify({ error: 'Failed to fetch Deepgram projects' }), {
+      const errText = await projectsResponse.text().catch(() => 'No error text');
+      return new Response(JSON.stringify({ error: `Failed to fetch Deepgram projects: ${errText}` }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
       });
@@ -48,7 +49,8 @@ export async function GET(request: Request) {
     });
 
     if (!keyResponse.ok) {
-      return new Response(JSON.stringify({ error: 'Failed to generate temporary Deepgram token' }), {
+      const errText = await keyResponse.text().catch(() => 'No error text');
+      return new Response(JSON.stringify({ error: `Failed to generate temporary Deepgram token: ${errText}` }), {
         status: 500,
         headers: { 'Content-Type': 'application/json' },
       });

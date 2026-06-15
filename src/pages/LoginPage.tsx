@@ -1,187 +1,173 @@
-import { useState } from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Mail, Lock, Loader2, Mic, Activity, Shield, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { LogIn, Mail, Lock, Mic, Waves } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
-import GlassCard from '../components/GlassCard';
 
 export default function LoginPage() {
-  const { signIn, isAuthenticated, isLoading } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { signIn, isLoading } = useAuth();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-
-  if (isLoading) return null;
-  if (isAuthenticated) return <Navigate to="/dashboard" replace />;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !password) {
-      toast.error('Please fill in all fields');
-      return;
-    }
-
     setLoading(true);
-    try {
-      const { error } = await signIn(email, password);
-      if (error) {
-        toast.error(error.message || 'Login failed');
-      } else {
-        toast.success('Welcome back!');
-      }
-    } catch {
-      toast.error('An unexpected error occurred');
-    } finally {
+    
+    const { error } = await signIn(email, password);
+    
+    if (error) {
+      toast.error(error.message || 'Failed to sign in');
       setLoading(false);
+    } else {
+      toast.success('Welcome back!');
+      navigate('/dashboard');
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-y-auto overflow-x-hidden bg-slate-50 dark:bg-[#0f0a1a]">
-      {/* Animated background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-radial from-purple-900/20 to-transparent rounded-full animate-pulse" />
-        <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-gradient-radial from-violet-900/20 to-transparent rounded-full animate-pulse" style={{ animationDelay: '1s' }} />
-        
-        {/* Floating orbs */}
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-purple-500/10"
-            style={{
-              width: 100 + i * 40,
-              height: 100 + i * 40,
-              left: `${10 + i * 15}%`,
-              top: `${20 + (i % 3) * 25}%`,
-            }}
-            animate={{
-              y: [0, -30, 0],
-              x: [0, 15, 0],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 4 + i,
-              repeat: Infinity,
-              ease: 'easeInOut',
-              delay: i * 0.5,
-            }}
-          />
-        ))}
+    <div className="min-h-screen flex bg-[#09090B] text-white">
+      {/* Left Panel - Hero / Brand (Hidden on Mobile) */}
+      <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-[#111827] border-r border-[rgba(255,255,255,0.08)] flex-col justify-between p-12">
+        {/* Animated Background Blobs */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+          <div className="absolute -top-[20%] -left-[10%] w-[70%] h-[70%] rounded-full bg-purple-600/20 blur-[120px]" />
+          <div className="absolute top-[40%] -right-[10%] w-[60%] h-[60%] rounded-full bg-cyan-600/20 blur-[100px]" />
+        </div>
+
+        <div className="relative z-10 flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-violet-600 flex items-center justify-center shadow-lg shadow-purple-500/20">
+            <Mic className="w-5 h-5 text-white" />
+          </div>
+          <span className="text-2xl font-bold tracking-tight">VoiceFlow AI</span>
+        </div>
+
+        <div className="relative z-10 max-w-md mt-20">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-5xl font-extrabold tracking-tight leading-[1.1] mb-6"
+          >
+            Real-time Speech Intelligence
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">Platform</span>
+          </motion.h1>
+          
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-gray-400 text-lg mb-10"
+          >
+            Enterprise-grade live transcription powered by Deepgram. Secure, fast, and remarkably accurate.
+          </motion.p>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="grid grid-cols-2 gap-4"
+          >
+            <div className="saas-card p-5 bg-[#1F2937]/50 backdrop-blur-sm border-[rgba(255,255,255,0.05)]">
+              <Activity className="w-6 h-6 text-purple-400 mb-3" />
+              <h3 className="font-semibold text-sm">Ultra-low Latency</h3>
+              <p className="text-xs text-gray-500 mt-1">~100ms response time</p>
+            </div>
+            <div className="saas-card p-5 bg-[#1F2937]/50 backdrop-blur-sm border-[rgba(255,255,255,0.05)]">
+              <Shield className="w-6 h-6 text-cyan-400 mb-3" />
+              <h3 className="font-semibold text-sm">Enterprise Security</h3>
+              <p className="text-xs text-gray-500 mt-1">End-to-end encryption</p>
+            </div>
+          </motion.div>
+        </div>
+
+        <div className="relative z-10 text-sm text-gray-500">
+          © {new Date().getFullYear()} VoiceFlow AI. Powered by Deepgram & Nhost.
+        </div>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="w-full max-w-md z-10"
-      >
-        {/* Logo section */}
-        <motion.div
-          className="text-center mb-8"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 to-violet-700 mb-4 shadow-lg shadow-purple-500/30">
-            <Mic className="w-8 h-8 text-slate-900 dark:text-white" />
-          </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
-            VoiceFlow AI
-          </h1>
-          <div className="flex items-center justify-center gap-1 mt-2">
-            <Waves className="w-4 h-4 text-purple-400" />
-            <p className="text-slate-600 dark:text-gray-400 text-sm">Real-time speech intelligence</p>
-          </div>
-        </motion.div>
-
-        {/* Login card */}
-        <GlassCard
-          className="p-10 sm:p-12"
-          glow
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3, duration: 0.5 }}
-        >
-          <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-6">Welcome back</h2>
-
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="space-y-3">
-              <label className="text-sm text-slate-600 dark:text-gray-400 font-medium tracking-wide" htmlFor="login-email">Email</label>
-              <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-400 z-10" />
-                <input
-                  id="login-email"
-                  type="email"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  placeholder="you@example.com"
-                  style={{ paddingLeft: '3.5rem' }}
-                  className="w-full pr-4 py-4 rounded-2xl bg-white/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all text-lg shadow-inner"
-                  autoComplete="email"
-                />
-              </div>
+      {/* Right Panel - Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-12 lg:p-24 relative">
+        <div className="w-full max-w-md">
+          <div className="lg:hidden flex items-center justify-center gap-3 mb-12">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-violet-600 flex items-center justify-center shadow-lg shadow-purple-500/20">
+              <Mic className="w-5 h-5 text-white" />
             </div>
-
-            <div className="space-y-3 mt-6">
-              <label className="text-sm text-slate-600 dark:text-gray-400 font-medium tracking-wide" htmlFor="login-password">Password</label>
-              <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-6 h-6 text-gray-400 z-10" />
-                <input
-                  id="login-password"
-                  type="password"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  style={{ paddingLeft: '3.5rem' }}
-                  className="w-full pr-4 py-4 rounded-2xl bg-white/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all text-lg shadow-inner"
-                  autoComplete="current-password"
-                />
-              </div>
-            </div>
-
-            <motion.button
-              type="submit"
-              disabled={loading}
-              className="w-full mt-8 py-5 px-6 rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 text-white font-bold flex items-center justify-center gap-3 hover:from-purple-500 hover:to-violet-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-[0_0_30px_rgba(168,85,247,0.3)] text-xl tracking-wide"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              {loading ? (
-                <motion.div
-                  className="w-5 h-5 border-2 border-slate-900/30 dark:border-white/30 border-t-slate-900 dark:border-t-white rounded-full"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                />
-              ) : (
-                <>
-                  <LogIn className="w-4 h-4" />
-                  Sign In
-                </>
-              )}
-            </motion.button>
-          </form>
-
-          <div className="mt-6 text-center">
-            <p className="text-slate-600 dark:text-gray-400 text-sm">
-              Don't have an account?{' '}
-              <Link to="/signup" className="text-purple-400 hover:text-purple-300 font-medium transition-colors">
-                Sign up
-              </Link>
-            </p>
+            <span className="text-2xl font-bold tracking-tight">VoiceFlow AI</span>
           </div>
-        </GlassCard>
 
-        {/* Footer */}
-        <motion.p
-          className="text-center mt-6 text-xs text-gray-600"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-        >
-          Powered by Deepgram AI & Nhost Auth
-        </motion.p>
-      </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4 }}
+          >
+            <h2 className="text-3xl font-bold tracking-tight mb-2">Welcome back</h2>
+            <p className="text-gray-400 mb-8">Sign in to your account to continue</p>
+
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-300" htmlFor="login-email">Email Address</label>
+                <div className="relative">
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 z-10" />
+                  <input
+                    id="login-email"
+                    type="email"
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    placeholder="you@example.com"
+                    style={{ paddingLeft: '3rem' }}
+                    className="saas-input w-full pr-4 py-3 rounded-xl bg-[#111827] border-[rgba(255,255,255,0.1)] text-white placeholder-gray-500 text-base"
+                    autoComplete="email"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="text-sm font-medium text-gray-300" htmlFor="login-password">Password</label>
+                  <a href="#" className="text-xs font-medium text-purple-400 hover:text-purple-300 transition-colors">Forgot password?</a>
+                </div>
+                <div className="relative">
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 z-10" />
+                  <input
+                    id="login-password"
+                    type="password"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    style={{ paddingLeft: '3rem' }}
+                    className="saas-input w-full pr-4 py-3 rounded-xl bg-[#111827] border-[rgba(255,255,255,0.1)] text-white placeholder-gray-500 text-base"
+                    autoComplete="current-password"
+                    required
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading || isLoading}
+                className="btn-primary w-full mt-8 py-3.5 px-4 rounded-xl font-semibold flex items-center justify-center gap-2 disabled:opacity-50 transition-all text-base"
+              >
+                {loading || isLoading ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  'Sign In'
+                )}
+              </button>
+
+              <p className="text-center text-sm text-gray-400 mt-6">
+                Don't have an account?{' '}
+                <Link to="/signup" className="font-semibold text-white hover:text-purple-400 transition-colors">
+                  Create one now
+                </Link>
+              </p>
+            </form>
+          </motion.div>
+        </div>
+      </div>
     </div>
   );
 }

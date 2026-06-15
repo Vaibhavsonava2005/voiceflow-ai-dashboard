@@ -1,8 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
-  Mic, MicOff, Copy, Download, Trash2, User, Mail, Shield,
-  Activity, AlertCircle,
+  Mic, MicOff, Copy, Download, Trash2, Activity, AlertCircle, Clock, FileText, Wifi, History
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
@@ -10,12 +9,8 @@ import { useTranscript } from '../context/TranscriptContext';
 import { useDeepgram } from '../hooks/useDeepgram';
 import { useTimer } from '../hooks/useTimer';
 import Navbar from '../components/Navbar';
-import GlassCard from '../components/GlassCard';
 import TranscriptPanel from '../components/TranscriptPanel';
 import TranscriptHistory from '../components/TranscriptHistory';
-import ConnectionStatus from '../components/ConnectionStatus';
-import SpeakingTimer from '../components/SpeakingTimer';
-import StatsBar from '../components/StatsBar';
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -25,14 +20,12 @@ export default function DashboardPage() {
 
   const charCount = currentTranscript.trim().length;
 
-  // Sync timer with listening state
   useEffect(() => {
     if (isListening) {
       timer.start();
     } else {
       timer.stop();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isListening]);
 
   const handleStartListening = useCallback(async () => {
@@ -80,182 +73,176 @@ export default function DashboardPage() {
 
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1 },
-    },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 10 },
     visible: { opacity: 1, y: 0 },
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-[#0f0a1a]">
+    <div className="min-h-screen bg-[var(--bg-primary)]">
       <Navbar />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <main className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="space-y-6"
+          className="space-y-8"
         >
-          {/* Top row: User info + status */}
-          <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            {/* User card */}
-            <GlassCard className="p-6 lg:col-span-1" hover>
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
-                  <User className="w-6 h-6 text-slate-900 dark:text-white" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <h2 className="text-lg font-semibold text-slate-900 dark:text-white truncate">
-                    {user?.displayName || user?.email?.split('@')[0] || 'User'}
-                  </h2>
-                  <div className="flex items-center gap-1.5 mt-1">
-                    <Mail className="w-3 h-3 text-gray-500" />
-                    <p className="text-sm text-slate-600 dark:text-gray-400 truncate">{user?.email || 'No email'}</p>
-                  </div>
-                  <div className="flex items-center gap-1.5 mt-1">
-                    <Shield className="w-3 h-3 text-emerald-500" />
-                    <p className="text-xs text-emerald-400 font-medium">Session Active</p>
-                  </div>
-                </div>
-              </div>
-            </GlassCard>
-
-            {/* Stats */}
-            <GlassCard className="p-6 lg:col-span-2 flex flex-col justify-center" hover>
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div>
-                  <h3 className="text-sm font-semibold text-slate-700 dark:text-gray-300 mb-3 flex items-center gap-2">
-                    <Activity className="w-4 h-4 text-purple-400" />
-                    Live Statistics
-                  </h3>
-                  <StatsBar
-                    wordCount={wordCount}
-                    charCount={charCount}
-                    duration={timer.formatted}
-                  />
-                </div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <ConnectionStatus status={connectionStatus} />
-                  <SpeakingTimer formatted={timer.formatted} isRunning={timer.isRunning} />
-                </div>
-              </div>
-            </GlassCard>
+          {/* Dashboard Header */}
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pb-6 border-b border-[var(--border-subtle)]">
+            <div>
+              <h1 className="text-3xl font-bold tracking-tight text-[var(--text-primary)]">Overview</h1>
+              <p className="text-[var(--text-secondary)] mt-1">Live speech transcription and analytics session.</p>
+            </div>
+            
+            <div className="flex items-center gap-4">
+              {!isListening ? (
+                <button
+                  onClick={handleStartListening}
+                  className="btn-primary px-6 py-2.5 rounded-lg font-semibold flex items-center gap-2 transition-all"
+                >
+                  <Mic className="w-5 h-5" />
+                  Start Session
+                </button>
+              ) : (
+                <button
+                  onClick={handleStopListening}
+                  className="bg-red-500 hover:bg-red-600 text-white px-6 py-2.5 rounded-lg font-semibold flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(239,68,68,0.3)] animate-pulse"
+                >
+                  <MicOff className="w-5 h-5" />
+                  Stop Session
+                </button>
+              )}
+            </div>
           </motion.div>
 
           {/* Error display */}
           {error && (
-            <motion.div
-              className="flex items-center gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
+            <motion.div variants={itemVariants} className="flex items-center gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400">
               <AlertCircle className="w-5 h-5 flex-shrink-0" />
-              <p className="text-sm">{error}</p>
+              <p className="text-sm font-medium">{error}</p>
             </motion.div>
           )}
 
-          {/* Main content */}
-          <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Transcript area */}
-            <div className="lg:col-span-2 space-y-4 flex flex-col">
-              <GlassCard className="p-8 flex-1 flex flex-col min-h-[500px]" glow>
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2 tracking-tight">
-                    <Mic className="w-6 h-6 text-purple-500" />
-                    Live Transcript
-                  </h3>
+          {/* Statistics Grid */}
+          <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="saas-card p-5 flex flex-col justify-between">
+              <div className="flex items-center gap-3 text-[var(--text-secondary)] mb-2">
+                <FileText className="w-4 h-4" />
+                <span className="text-sm font-medium">Words</span>
+              </div>
+              <div className="text-3xl font-bold text-[var(--text-primary)]">{wordCount}</div>
+            </div>
+            
+            <div className="saas-card p-5 flex flex-col justify-between">
+              <div className="flex items-center gap-3 text-[var(--text-secondary)] mb-2">
+                <Activity className="w-4 h-4" />
+                <span className="text-sm font-medium">Characters</span>
+              </div>
+              <div className="text-3xl font-bold text-[var(--text-primary)]">{charCount}</div>
+            </div>
+            
+            <div className="saas-card p-5 flex flex-col justify-between">
+              <div className="flex items-center gap-3 text-[var(--text-secondary)] mb-2">
+                <Clock className="w-4 h-4" />
+                <span className="text-sm font-medium">Duration</span>
+              </div>
+              <div className="text-3xl font-bold text-[var(--text-primary)] font-mono">{timer.formatted}</div>
+            </div>
+            
+            <div className="saas-card p-5 flex flex-col justify-between">
+              <div className="flex items-center gap-3 text-[var(--text-secondary)] mb-2">
+                <Wifi className="w-4 h-4" />
+                <span className="text-sm font-medium">Status</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className={`w-3 h-3 rounded-full ${
+                  connectionStatus === 'connected' ? 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]' :
+                  connectionStatus === 'connecting' ? 'bg-amber-500 animate-pulse' :
+                  connectionStatus === 'error' ? 'bg-red-500' : 'bg-gray-500'
+                }`} />
+                <span className="text-lg font-bold capitalize text-[var(--text-primary)]">
+                  {connectionStatus === 'idle' ? 'Ready' : connectionStatus}
+                </span>
+              </div>
+            </div>
+          </motion.div>
 
-                  {/* Action buttons */}
-                  <div className="flex items-center gap-2">
-                    <motion.button
-                      onClick={handleCopy}
-                      className="p-2 rounded-lg bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:text-white hover:bg-slate-900/10 dark:bg-white/10 transition-all"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      title="Copy transcript"
-                    >
-                      <Copy className="w-4 h-4" />
-                    </motion.button>
-                    <motion.button
-                      onClick={handleDownload}
-                      className="p-2 rounded-lg bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:text-white hover:bg-slate-900/10 dark:bg-white/10 transition-all"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      title="Download as TXT"
-                    >
-                      <Download className="w-4 h-4" />
-                    </motion.button>
-                    <motion.button
-                      onClick={handleClear}
-                      className="p-2 rounded-lg bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-600 dark:text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-all"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      title="Clear transcript"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </motion.button>
-                  </div>
+          {/* Main Layout Grid */}
+          <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            
+            {/* Left Column: Transcript Area */}
+            <div className="lg:col-span-2 flex flex-col gap-4">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-semibold text-[var(--text-primary)] flex items-center gap-2">
+                  <Mic className="w-5 h-5 text-[var(--color-primary)]" />
+                  Live Transcript
+                </h2>
+                
+                <div className="flex gap-2">
+                  <button onClick={handleCopy} className="p-2 text-[var(--text-secondary)] hover:text-white bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-md transition-colors" title="Copy">
+                    <Copy className="w-4 h-4" />
+                  </button>
+                  <button onClick={handleDownload} className="p-2 text-[var(--text-secondary)] hover:text-white bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-md transition-colors" title="Download">
+                    <Download className="w-4 h-4" />
+                  </button>
+                  <button onClick={handleClear} className="p-2 text-[var(--text-secondary)] hover:text-red-400 bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-md transition-colors" title="Clear">
+                    <Trash2 className="w-4 h-4" />
+                  </button>
                 </div>
-
-                <div className="flex-1 overflow-hidden min-h-[300px]">
-                  <TranscriptPanel />
-                </div>
-
-                {/* Controls */}
-                <div className="flex justify-center mt-8">
-                  {!isListening ? (
-                    <motion.button
-                      onClick={handleStartListening}
-                      className="group relative flex items-center gap-4 px-12 py-6 rounded-full bg-gradient-to-r from-purple-600 to-violet-600 text-white font-black transition-all shadow-[0_0_40px_rgba(168,85,247,0.4)] hover:shadow-[0_0_60px_rgba(168,85,247,0.6)] text-2xl tracking-wide overflow-hidden"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {/* Sweep effect */}
-                      <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-                      
-                      <div className="relative flex items-center justify-center w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm">
-                        <Mic className="w-7 h-7 text-white" />
-                      </div>
-                      <span className="relative z-10">START LISTENING</span>
-                    </motion.button>
+              </div>
+              
+              <div className="saas-card flex flex-col min-h-[500px] overflow-hidden relative">
+                {isListening && (
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 via-cyan-500 to-purple-500 animate-[shimmer_2s_linear_infinite]" />
+                )}
+                
+                <div className="flex-1 p-6 overflow-y-auto">
+                  {currentTranscript ? (
+                    <TranscriptPanel />
                   ) : (
-                    <motion.button
-                      onClick={handleStopListening}
-                      className="group relative flex items-center gap-4 px-12 py-6 rounded-full bg-gradient-to-r from-rose-600 to-red-600 text-white font-black transition-all shadow-[0_0_40px_rgba(225,29,72,0.4)] hover:shadow-[0_0_60px_rgba(225,29,72,0.6)] text-2xl tracking-wide overflow-hidden"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
-
-                      <div className="relative flex items-center justify-center w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm">
-                        <MicOff className="w-7 h-7 text-white" />
+                    <div className="h-full flex items-center justify-center text-[var(--text-secondary)]">
+                      <div className="text-center">
+                        <Mic className="w-12 h-12 mx-auto mb-4 opacity-20" />
+                        <p>Click "Start Session" to begin transcribing...</p>
                       </div>
-                      <span className="relative z-10">STOP LISTENING</span>
-                      
-                      {/* Pulse animation */}
-                      <motion.div
-                        className="absolute right-6 w-3 h-3 rounded-full bg-white"
-                        animate={{ scale: [1, 2, 1], opacity: [1, 0, 1] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                      />
-                    </motion.button>
+                    </div>
                   )}
                 </div>
-              </GlassCard>
+                
+                {isListening && (
+                  <div className="bg-[var(--bg-elevated)] border-t border-[var(--border-subtle)] px-6 py-3 flex items-center gap-3">
+                    <div className="flex gap-1">
+                      {[...Array(3)].map((_, i) => (
+                        <motion.div
+                          key={i}
+                          className="w-1 h-3 bg-purple-500 rounded-full"
+                          animate={{ height: ['12px', '24px', '12px'] }}
+                          transition={{ duration: 0.5, repeat: Infinity, delay: i * 0.15 }}
+                        />
+                      ))}
+                    </div>
+                    <span className="text-sm font-medium text-purple-400">Listening...</span>
+                  </div>
+                )}
+              </div>
             </div>
 
-            {/* Sidebar: History */}
-            <div className="lg:col-span-1">
-              <GlassCard className="p-5" hover>
+            {/* Right Column: History */}
+            <div className="lg:col-span-1 flex flex-col gap-4">
+              <h2 className="text-lg font-semibold text-[var(--text-primary)] flex items-center gap-2">
+                <History className="w-5 h-5 text-[var(--text-secondary)]" />
+                Session History
+              </h2>
+              <div className="saas-card p-5 min-h-[500px]">
                 <TranscriptHistory />
-              </GlassCard>
+              </div>
             </div>
+
           </motion.div>
         </motion.div>
       </main>

@@ -2,27 +2,40 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ============================
-   VoiceFlow AI Design System
+   VoiceFlow AI Premium SaaS Design System
    ============================ */
 
-/* Custom properties */
 :root {
-  --bg-primary: #0f0a1a;
-  --bg-surface: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --purple-glow: rgba(168, 85, 247, 0.15);
+  /* Colors */
+  --bg-primary: #09090B;
+  --bg-surface: #111827;
+  --bg-elevated: #1F2937;
+  
+  --color-primary: #8B5CF6;
+  --color-secondary: #A855F7;
+  --color-accent: #06B6D4;
+  --color-success: #10B981;
+  
+  --text-primary: #F9FAFB;
+  --text-secondary: #9CA3AF;
+  
+  --border-subtle: rgba(255,255,255,0.08);
+  --border-focus: rgba(139, 92, 246, 0.4);
+
   color-scheme: dark;
 }
 
+/* Light mode fallback (though this design is dark-focused) */
 .light {
-  --bg-primary: #f8f7ff;
-  --bg-surface: rgba(255, 255, 255, 0.8);
-  --glass-border: rgba(0, 0, 0, 0.08);
-  --purple-glow: rgba(124, 58, 237, 0.1);
+  --bg-primary: #FFFFFF;
+  --bg-surface: #F9FAFB;
+  --bg-elevated: #F3F4F6;
+  --text-primary: #111827;
+  --text-secondary: #4B5563;
+  --border-subtle: rgba(0,0,0,0.08);
   color-scheme: light;
 }
 
-/* Base styles */
 * {
   margin: 0;
   padding: 0;
@@ -36,67 +49,27 @@ html {
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   background-color: var(--bg-primary);
-  color: #e2e8f0;
+  color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
 }
 
-.light body {
-  color: #1e293b;
-}
-
-/* Scrollbar */
+/* Scrollbar styling (Linear/Notion style) */
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
-
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: rgba(168, 85, 247, 0.3);
-  border-radius: 3px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(168, 85, 247, 0.5);
-}
-
-/* Gradient radial utility */
-.bg-gradient-radial {
-  background: radial-gradient(circle, var(--tw-gradient-from), var(--tw-gradient-to));
-}
-
-/* Glass effects */
-.glass {
-  background: var(--bg-surface);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--glass-border);
-}
-
-/* Selection */
-::selection {
-  background-color: rgba(124, 58, 237, 0.4);
-  color: white;
-}
-
-/* Line clamp */
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Focus ring */
-input:focus,
-button:focus-visible {
-  outline: none;
-  ring: 2px solid rgba(124, 58, 237, 0.5);
+  background: rgba(255,255,255,0.2);
 }
 
 /* Animations */
@@ -104,21 +77,63 @@ button:focus-visible {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
-
 .animate-shimmer {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(168, 85, 247, 0.1) 50%,
+    rgba(255, 255, 255, 0.1) 50%,
     transparent 100%
   );
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }
 
-/* Responsive typography */
-@media (max-width: 640px) {
-  html {
-    font-size: 14px;
-  }
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+/* Custom premium card */
+.saas-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+}
+.saas-card:hover {
+  border-color: rgba(255,255,255,0.15);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2), 0 4px 6px -2px rgba(0, 0, 0, 0.1);
+}
+
+/* Inputs */
+.saas-input {
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+.saas-input:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 14px 0 rgba(139, 92, 246, 0.39);
+}
+.btn-primary:hover {
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.23);
+}
+
+/* Glass panel */
+.glass-panel {
+  background: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
 }
