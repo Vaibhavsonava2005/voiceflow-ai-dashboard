@@ -80,7 +80,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         password,
         options: {
           displayName: displayName || email.split('@')[0],
-          redirectTo: window.location.origin,
         },
       });
       updateStateFromSession();
