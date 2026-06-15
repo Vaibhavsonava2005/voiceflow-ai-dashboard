@@ -25,7 +25,7 @@ export default function SignUpPage() {
           animate={{ opacity: 1, scale: 1 }}
           className="w-full max-w-md"
         >
-          <GlassCard className="p-8 text-center" glow>
+          <GlassCard className="p-10 sm:p-12" glow>
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 mb-4">
               <Mail className="w-8 h-8 text-slate-900 dark:text-white" />
             </div>
@@ -143,48 +143,48 @@ export default function SignUpPage() {
           <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-6">Get started</h2>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="space-y-1.5">
-              <label className="text-sm text-slate-600 dark:text-gray-400 font-medium" htmlFor="signup-name">Display Name</label>
+            <div className="space-y-3">
+              <label className="text-sm text-slate-600 dark:text-gray-400 font-medium tracking-wide text-left block" htmlFor="signup-name">Display Name</label>
               <div className="relative">
-                <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                 <input
                   id="signup-name"
                   type="text"
                   value={name}
                   onChange={e => setName(e.target.value)}
                   placeholder="John Doe"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
+                  className="w-full pl-12 pr-4 py-4 rounded-xl bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all text-base"
                 />
               </div>
             </div>
 
-            <div className="space-y-1.5">
-              <label className="text-sm text-slate-600 dark:text-gray-400 font-medium" htmlFor="signup-email">Email</label>
+            <div className="space-y-3 mt-6">
+              <label className="text-sm text-slate-600 dark:text-gray-400 font-medium tracking-wide text-left block" htmlFor="signup-email">Email</label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                 <input
                   id="signup-email"
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
+                  className="w-full pl-12 pr-4 py-4 rounded-xl bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all text-base"
                   autoComplete="email"
                 />
               </div>
             </div>
 
-            <div className="space-y-1.5">
-              <label className="text-sm text-slate-600 dark:text-gray-400 font-medium" htmlFor="signup-password">Password</label>
+            <div className="space-y-3 mt-6">
+              <label className="text-sm text-slate-600 dark:text-gray-400 font-medium tracking-wide text-left block" htmlFor="signup-password">Password</label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
                 <input
                   id="signup-password"
                   type="password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   placeholder="Min 8 characters"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
+                  className="w-full pl-12 pr-4 py-4 rounded-xl bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all text-base"
                   autoComplete="new-password"
                 />
               </div>
@@ -193,7 +193,7 @@ export default function SignUpPage() {
             <motion.button
               type="submit"
               disabled={loading}
-              className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-violet-600 text-slate-900 dark:text-white font-semibold flex items-center justify-center gap-2 hover:from-purple-500 hover:to-violet-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-purple-500/25"
+              className="w-full mt-8 py-4 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-violet-600 text-slate-900 dark:text-white font-semibold flex items-center justify-center gap-2 hover:from-purple-500 hover:to-violet-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-purple-500/25 text-lg"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >

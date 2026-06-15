@@ -105,7 +105,7 @@ export default function DashboardPage() {
           {/* Top row: User info + status */}
           <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             {/* User card */}
-            <GlassCard className="p-5 lg:col-span-1" hover>
+            <GlassCard className="p-6 lg:col-span-1" hover>
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
                   <User className="w-6 h-6 text-slate-900 dark:text-white" />
@@ -127,7 +127,7 @@ export default function DashboardPage() {
             </GlassCard>
 
             {/* Stats */}
-            <GlassCard className="p-5 lg:col-span-2" hover>
+            <GlassCard className="p-6 lg:col-span-2 flex flex-col justify-center" hover>
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                   <h3 className="text-sm font-semibold text-slate-700 dark:text-gray-300 mb-3 flex items-center gap-2">
@@ -163,11 +163,11 @@ export default function DashboardPage() {
           {/* Main content */}
           <motion.div variants={itemVariants} className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Transcript area */}
-            <div className="lg:col-span-2 space-y-4">
-              <GlassCard className="p-6" glow>
+            <div className="lg:col-span-2 space-y-4 flex flex-col">
+              <GlassCard className="p-8 flex-1 flex flex-col min-h-[500px]" glow>
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white flex items-center gap-2">
-                    <Mic className="w-5 h-5 text-purple-400" />
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2 tracking-tight">
+                    <Mic className="w-6 h-6 text-purple-500" />
                     Live Transcript
                   </h3>
 
@@ -203,33 +203,35 @@ export default function DashboardPage() {
                   </div>
                 </div>
 
-                <TranscriptPanel />
+                <div className="flex-1 overflow-hidden min-h-[300px]">
+                  <TranscriptPanel />
+                </div>
 
                 {/* Controls */}
-                <div className="flex flex-wrap items-center gap-3 mt-5">
+                <div className="flex justify-center mt-8">
                   {!isListening ? (
                     <motion.button
                       onClick={handleStartListening}
-                      className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-violet-600 text-slate-900 dark:text-white font-semibold hover:from-purple-500 hover:to-violet-500 transition-all shadow-lg shadow-purple-500/25"
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
+                      className="flex items-center gap-3 px-10 py-5 rounded-full bg-gradient-to-r from-purple-600 to-violet-600 text-slate-900 dark:text-white font-bold hover:from-purple-500 hover:to-violet-500 transition-all shadow-xl shadow-purple-500/30 text-xl tracking-wide"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                     >
-                      <Mic className="w-5 h-5" />
+                      <Mic className="w-7 h-7" />
                       Start Listening
                     </motion.button>
                   ) : (
                     <motion.button
                       onClick={handleStopListening}
-                      className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-slate-900 dark:text-white font-semibold hover:from-red-500 hover:to-rose-500 transition-all shadow-lg shadow-red-500/25"
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.97 }}
+                      className="flex items-center gap-3 px-10 py-5 rounded-full bg-gradient-to-r from-red-600 to-rose-600 text-slate-900 dark:text-white font-bold hover:from-red-500 hover:to-rose-500 transition-all shadow-xl shadow-red-500/30 text-xl tracking-wide"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                     >
-                      <MicOff className="w-5 h-5" />
+                      <MicOff className="w-7 h-7" />
                       Stop Listening
                       {/* Pulse animation */}
                       <motion.div
-                        className="w-2 h-2 rounded-full bg-white"
-                        animate={{ scale: [1, 1.5, 1], opacity: [1, 0.5, 1] }}
+                        className="w-3 h-3 rounded-full bg-white ml-2"
+                        animate={{ scale: [1, 1.8, 1], opacity: [1, 0.4, 1] }}
                         transition={{ duration: 1, repeat: Infinity }}
                       />
                     </motion.button>

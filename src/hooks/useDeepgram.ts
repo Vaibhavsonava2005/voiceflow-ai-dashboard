@@ -77,7 +77,7 @@ export function useDeepgram(): UseDeepgramReturn {
       smart_format: 'true',
       interim_results: 'true',
       punctuate: 'true',
-      endpointing: '300',
+      endpointing: '100', // Ultra-fast endpointing
       utterance_end_ms: '1000',
     });
 
@@ -108,7 +108,7 @@ export function useDeepgram(): UseDeepgramReturn {
           }
         };
 
-        mediaRecorder.start(250);
+        mediaRecorder.start(100); // 100ms chunks for butter-smooth live transcription
 
         // KeepAlive every 3s
         keepAliveRef.current = setInterval(() => {
