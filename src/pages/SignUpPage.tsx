@@ -19,7 +19,7 @@ export default function SignUpPage() {
 
   if (needsVerification) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4 bg-[#0f0a1a]">
+      <div className="min-h-screen flex items-center justify-center p-4 bg-slate-50 dark:bg-[#0f0a1a]">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -27,16 +27,16 @@ export default function SignUpPage() {
         >
           <GlassCard className="p-8 text-center" glow>
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 mb-4">
-              <Mail className="w-8 h-8 text-white" />
+              <Mail className="w-8 h-8 text-slate-900 dark:text-white" />
             </div>
-            <h2 className="text-xl font-semibold text-white mb-2">Check your email</h2>
-            <p className="text-gray-400 text-sm mb-6">
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">Check your email</h2>
+            <p className="text-slate-600 dark:text-gray-400 text-sm mb-6">
               We've sent a verification link to <span className="text-purple-400 font-medium">{email}</span>.
               Please verify your email to continue.
             </p>
             <Link
               to="/login"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-medium transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-slate-900 dark:text-white font-medium transition-colors"
             >
               Go to Login
             </Link>
@@ -76,7 +76,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-y-auto overflow-x-hidden bg-[#0f0a1a]">
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-y-auto overflow-x-hidden bg-slate-50 dark:bg-[#0f0a1a]">
       {/* Background effects */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-radial from-violet-900/20 to-transparent rounded-full animate-pulse" />
@@ -121,14 +121,14 @@ export default function SignUpPage() {
           transition={{ delay: 0.2 }}
         >
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 to-violet-700 mb-4 shadow-lg shadow-purple-500/30">
-            <Mic className="w-8 h-8 text-white" />
+            <Mic className="w-8 h-8 text-slate-900 dark:text-white" />
           </div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
             VoiceFlow AI
           </h1>
           <div className="flex items-center justify-center gap-1 mt-2">
             <Waves className="w-4 h-4 text-purple-400" />
-            <p className="text-gray-400 text-sm">Create your account</p>
+            <p className="text-slate-600 dark:text-gray-400 text-sm">Create your account</p>
           </div>
         </motion.div>
 
@@ -140,11 +140,11 @@ export default function SignUpPage() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
-          <h2 className="text-xl font-semibold text-white mb-6">Get started</h2>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-6">Get started</h2>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-1.5">
-              <label className="text-sm text-gray-400 font-medium" htmlFor="signup-name">Display Name</label>
+              <label className="text-sm text-slate-600 dark:text-gray-400 font-medium" htmlFor="signup-name">Display Name</label>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                 <input
@@ -153,13 +153,13 @@ export default function SignUpPage() {
                   value={name}
                   onChange={e => setName(e.target.value)}
                   placeholder="John Doe"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm text-gray-400 font-medium" htmlFor="signup-email">Email</label>
+              <label className="text-sm text-slate-600 dark:text-gray-400 font-medium" htmlFor="signup-email">Email</label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                 <input
@@ -168,14 +168,14 @@ export default function SignUpPage() {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
                   autoComplete="email"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm text-gray-400 font-medium" htmlFor="signup-password">Password</label>
+              <label className="text-sm text-slate-600 dark:text-gray-400 font-medium" htmlFor="signup-password">Password</label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                 <input
@@ -184,7 +184,7 @@ export default function SignUpPage() {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   placeholder="Min 8 characters"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
                   autoComplete="new-password"
                 />
               </div>
@@ -193,13 +193,13 @@ export default function SignUpPage() {
             <motion.button
               type="submit"
               disabled={loading}
-              className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-violet-600 text-white font-semibold flex items-center justify-center gap-2 hover:from-purple-500 hover:to-violet-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-purple-500/25"
+              className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-violet-600 text-slate-900 dark:text-white font-semibold flex items-center justify-center gap-2 hover:from-purple-500 hover:to-violet-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-purple-500/25"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               {loading ? (
                 <motion.div
-                  className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
+                  className="w-5 h-5 border-2 border-slate-900/30 dark:border-white/30 border-t-slate-900 dark:border-t-white rounded-full"
                   animate={{ rotate: 360 }}
                   transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
                 />
@@ -213,7 +213,7 @@ export default function SignUpPage() {
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-gray-400 text-sm">
+            <p className="text-slate-600 dark:text-gray-400 text-sm">
               Already have an account?{' '}
               <Link to="/login" className="text-purple-400 hover:text-purple-300 font-medium transition-colors">
                 Sign in

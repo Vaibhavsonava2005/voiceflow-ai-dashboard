@@ -38,7 +38,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-y-auto overflow-x-hidden bg-[#0f0a1a]">
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-y-auto overflow-x-hidden bg-slate-50 dark:bg-[#0f0a1a]">
       {/* Animated background */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-gradient-radial from-purple-900/20 to-transparent rounded-full animate-pulse" />
@@ -84,14 +84,14 @@ export default function LoginPage() {
           transition={{ delay: 0.2 }}
         >
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 to-violet-700 mb-4 shadow-lg shadow-purple-500/30">
-            <Mic className="w-8 h-8 text-white" />
+            <Mic className="w-8 h-8 text-slate-900 dark:text-white" />
           </div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
             VoiceFlow AI
           </h1>
           <div className="flex items-center justify-center gap-1 mt-2">
             <Waves className="w-4 h-4 text-purple-400" />
-            <p className="text-gray-400 text-sm">Real-time speech intelligence</p>
+            <p className="text-slate-600 dark:text-gray-400 text-sm">Real-time speech intelligence</p>
           </div>
         </motion.div>
 
@@ -103,11 +103,11 @@ export default function LoginPage() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
         >
-          <h2 className="text-xl font-semibold text-white mb-6">Welcome back</h2>
+          <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-6">Welcome back</h2>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-1.5">
-              <label className="text-sm text-gray-400 font-medium" htmlFor="login-email">Email</label>
+              <label className="text-sm text-slate-600 dark:text-gray-400 font-medium" htmlFor="login-email">Email</label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                 <input
@@ -116,14 +116,14 @@ export default function LoginPage() {
                   value={email}
                   onChange={e => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
                   autoComplete="email"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-sm text-gray-400 font-medium" htmlFor="login-password">Password</label>
+              <label className="text-sm text-slate-600 dark:text-gray-400 font-medium" htmlFor="login-password">Password</label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
                 <input
@@ -132,7 +132,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
+                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all"
                   autoComplete="current-password"
                 />
               </div>
@@ -141,13 +141,13 @@ export default function LoginPage() {
             <motion.button
               type="submit"
               disabled={loading}
-              className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-violet-600 text-white font-semibold flex items-center justify-center gap-2 hover:from-purple-500 hover:to-violet-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-purple-500/25"
+              className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-purple-600 to-violet-600 text-slate-900 dark:text-white font-semibold flex items-center justify-center gap-2 hover:from-purple-500 hover:to-violet-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg shadow-purple-500/25"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               {loading ? (
                 <motion.div
-                  className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
+                  className="w-5 h-5 border-2 border-slate-900/30 dark:border-white/30 border-t-slate-900 dark:border-t-white rounded-full"
                   animate={{ rotate: 360 }}
                   transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
                 />
@@ -161,7 +161,7 @@ export default function LoginPage() {
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-gray-400 text-sm">
+            <p className="text-slate-600 dark:text-gray-400 text-sm">
               Don't have an account?{' '}
               <Link to="/signup" className="text-purple-400 hover:text-purple-300 font-medium transition-colors">
                 Sign up

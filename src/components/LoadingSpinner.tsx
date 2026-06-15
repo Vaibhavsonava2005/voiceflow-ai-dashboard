@@ -15,7 +15,7 @@ export default function LoadingSpinner({ fullScreen = false, size = 48 }: Loadin
         transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
       />
       <motion.p
-        className="text-sm text-gray-400"
+        className="text-sm text-slate-600 dark:text-gray-400"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
@@ -27,7 +27,7 @@ export default function LoadingSpinner({ fullScreen = false, size = 48 }: Loadin
 
   if (fullScreen) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0f0a1a]">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-50 dark:bg-[#0f0a1a]">
         {spinner}
       </div>
     );

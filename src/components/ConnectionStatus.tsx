@@ -7,10 +7,10 @@ interface ConnectionStatusProps {
 }
 
 const statusConfig = {
-  idle: { label: 'Ready', color: 'text-gray-400', bg: 'bg-gray-400', icon: WifiOff },
+  idle: { label: 'Ready', color: 'text-slate-600 dark:text-gray-400', bg: 'bg-gray-400', icon: WifiOff },
   connecting: { label: 'Connecting...', color: 'text-yellow-400', bg: 'bg-yellow-400', icon: Loader2 },
   connected: { label: 'Connected', color: 'text-emerald-400', bg: 'bg-emerald-400', icon: Wifi },
-  disconnected: { label: 'Disconnected', color: 'text-gray-400', bg: 'bg-gray-400', icon: WifiOff },
+  disconnected: { label: 'Disconnected', color: 'text-slate-600 dark:text-gray-400', bg: 'bg-gray-400', icon: WifiOff },
   error: { label: 'Error', color: 'text-red-400', bg: 'bg-red-400', icon: WifiOff },
 };
 
@@ -20,7 +20,7 @@ export default function ConnectionStatus({ status }: ConnectionStatusProps) {
 
   return (
     <motion.div
-      className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10"
+      className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10"
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       key={status}

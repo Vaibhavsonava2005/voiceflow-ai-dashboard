@@ -18,7 +18,7 @@ export default function TranscriptHistory() {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-gray-300 flex items-center gap-2">
+        <h3 className="text-sm font-semibold text-slate-700 dark:text-gray-300 flex items-center gap-2">
           <FileText className="w-4 h-4 text-purple-400" />
           Session History ({history.length})
         </h3>
@@ -38,13 +38,13 @@ export default function TranscriptHistory() {
           {history.map((entry, i) => (
             <motion.div
               key={entry.id}
-              className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.05] transition-colors"
+              className="p-3 rounded-xl bg-slate-900/[0.03] dark:bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.05] transition-colors"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ delay: i * 0.05 }}
             >
-              <p className="text-sm text-gray-300 line-clamp-2 leading-relaxed">
+              <p className="text-sm text-slate-700 dark:text-gray-300 line-clamp-2 leading-relaxed">
                 {entry.text}
               </p>
               <div className="flex items-center gap-3 mt-2 text-xs text-gray-500">

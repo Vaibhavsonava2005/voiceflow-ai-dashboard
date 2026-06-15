@@ -26,7 +26,7 @@ export function useDeepgram(): UseDeepgramReturn {
   
   const { appendToTranscript, setInterimText } = useTranscript();
 
-  const apiKey = (import.meta.env.VITE_DEEPGRAM_API_KEY || '').trim();
+
 
   const cleanup = useCallback(() => {
     if (keepAliveRef.current) {
@@ -51,14 +51,25 @@ export function useDeepgram(): UseDeepgramReturn {
   }, []);
 
   const connectWebSocket = useCallback(async (stream: MediaStream) => {
-    if (!apiKey) {
-      setError('Deepgram API key is not configured. Add VITE_DEEPGRAM_API_KEY to your .env file.');
+    setConnectionStatus('connecting');
+    setError(null);
+
+    let token = '';
+    try {
+      const res = await fetch('/api/token');
+      if (!res.ok) {
+        throw new Error('Failed to fetch temporary token');
+      }
+      const data = await res.json();
+      if (!data.token) {
+        throw new Error('Token not received');
+      }
+      token = data.token;
+    } catch (e) {
+      setError('Failed to secure connection token. Make sure DEEPGRAM_API_KEY is configured on the backend.');
       setConnectionStatus('error');
       return;
     }
-
-    setConnectionStatus('connecting');
-    setError(null);
 
     const params = new URLSearchParams({
       model: 'nova-2',
@@ -73,7 +84,7 @@ export function useDeepgram(): UseDeepgramReturn {
     try {
       const socket = new WebSocket(
         `wss://api.deepgram.com/v1/listen?${params.toString()}`,
-        ['token', apiKey]
+        ['token', token]
       );
 
       socketRef.current = socket;
@@ -167,7 +178,7 @@ export function useDeepgram(): UseDeepgramReturn {
       setError(`Failed to connect: ${e instanceof Error ? e.message : 'Unknown error'}`);
       setConnectionStatus('error');
     }
-  }, [apiKey, appendToTranscript, setInterimText]);
+  }, [appendToTranscript, setInterimText]);
 
   const startListening = useCallback(async () => {
     try {

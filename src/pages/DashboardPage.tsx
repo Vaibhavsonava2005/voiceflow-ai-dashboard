@@ -92,7 +92,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f0a1a]">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#0f0a1a]">
       <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
@@ -108,15 +108,15 @@ export default function DashboardPage() {
             <GlassCard className="p-5 lg:col-span-1" hover>
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-purple-500/20">
-                  <User className="w-6 h-6 text-white" />
+                  <User className="w-6 h-6 text-slate-900 dark:text-white" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <h2 className="text-lg font-semibold text-white truncate">
+                  <h2 className="text-lg font-semibold text-slate-900 dark:text-white truncate">
                     {user?.displayName || user?.email?.split('@')[0] || 'User'}
                   </h2>
                   <div className="flex items-center gap-1.5 mt-1">
                     <Mail className="w-3 h-3 text-gray-500" />
-                    <p className="text-sm text-gray-400 truncate">{user?.email || 'No email'}</p>
+                    <p className="text-sm text-slate-600 dark:text-gray-400 truncate">{user?.email || 'No email'}</p>
                   </div>
                   <div className="flex items-center gap-1.5 mt-1">
                     <Shield className="w-3 h-3 text-emerald-500" />
@@ -130,7 +130,7 @@ export default function DashboardPage() {
             <GlassCard className="p-5 lg:col-span-2" hover>
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
+                  <h3 className="text-sm font-semibold text-slate-700 dark:text-gray-300 mb-3 flex items-center gap-2">
                     <Activity className="w-4 h-4 text-purple-400" />
                     Live Statistics
                   </h3>
@@ -166,7 +166,7 @@ export default function DashboardPage() {
             <div className="lg:col-span-2 space-y-4">
               <GlassCard className="p-6" glow>
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white flex items-center gap-2">
                     <Mic className="w-5 h-5 text-purple-400" />
                     Live Transcript
                   </h3>
@@ -175,7 +175,7 @@ export default function DashboardPage() {
                   <div className="flex items-center gap-2">
                     <motion.button
                       onClick={handleCopy}
-                      className="p-2 rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-white/10 transition-all"
+                      className="p-2 rounded-lg bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:text-white hover:bg-slate-900/10 dark:bg-white/10 transition-all"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       title="Copy transcript"
@@ -184,7 +184,7 @@ export default function DashboardPage() {
                     </motion.button>
                     <motion.button
                       onClick={handleDownload}
-                      className="p-2 rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-white/10 transition-all"
+                      className="p-2 rounded-lg bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:text-white hover:bg-slate-900/10 dark:bg-white/10 transition-all"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       title="Download as TXT"
@@ -193,7 +193,7 @@ export default function DashboardPage() {
                     </motion.button>
                     <motion.button
                       onClick={handleClear}
-                      className="p-2 rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-all"
+                      className="p-2 rounded-lg bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-600 dark:text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-all"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       title="Clear transcript"
@@ -210,7 +210,7 @@ export default function DashboardPage() {
                   {!isListening ? (
                     <motion.button
                       onClick={handleStartListening}
-                      className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-violet-600 text-white font-semibold hover:from-purple-500 hover:to-violet-500 transition-all shadow-lg shadow-purple-500/25"
+                      className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-violet-600 text-slate-900 dark:text-white font-semibold hover:from-purple-500 hover:to-violet-500 transition-all shadow-lg shadow-purple-500/25"
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.97 }}
                     >
@@ -220,7 +220,7 @@ export default function DashboardPage() {
                   ) : (
                     <motion.button
                       onClick={handleStopListening}
-                      className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-white font-semibold hover:from-red-500 hover:to-rose-500 transition-all shadow-lg shadow-red-500/25"
+                      className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-red-600 to-rose-600 text-slate-900 dark:text-white font-semibold hover:from-red-500 hover:to-rose-500 transition-all shadow-lg shadow-red-500/25"
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.97 }}
                     >

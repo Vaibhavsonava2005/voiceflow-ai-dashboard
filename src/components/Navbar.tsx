@@ -9,7 +9,7 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className="sticky top-0 z-40 backdrop-blur-xl bg-white/[0.03] border-b border-white/[0.08]"
+      className="sticky top-0 z-40 backdrop-blur-xl bg-slate-900/[0.03] dark:bg-white/[0.03] border-b border-slate-900/[0.08] dark:border-white/[0.08]"
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -19,10 +19,10 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-purple-600 to-violet-700 flex items-center justify-center shadow-lg shadow-purple-500/20">
-              <Mic className="w-5 h-5 text-white" />
+              <Mic className="w-5 h-5 text-slate-900 dark:text-white" />
             </div>
             <div>
-              <h1 className="text-lg font-bold text-white leading-tight">VoiceFlow AI</h1>
+              <h1 className="text-lg font-bold text-slate-900 dark:text-white leading-tight">VoiceFlow AI</h1>
               <p className="text-[10px] text-purple-400 font-medium uppercase tracking-wider">Dashboard</p>
             </div>
           </div>
@@ -32,7 +32,7 @@ export default function Navbar() {
             {/* Theme toggle */}
             <motion.button
               onClick={toggleTheme}
-              className="p-2 rounded-xl bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-white/10 transition-all"
+              className="p-2 rounded-xl bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10 text-slate-600 dark:text-gray-400 hover:text-slate-900 dark:text-white hover:bg-slate-900/10 dark:bg-white/10 transition-all"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
@@ -41,11 +41,11 @@ export default function Navbar() {
             </motion.button>
 
             {/* User info */}
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10">
+            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900/5 dark:bg-white/5 border border-slate-900/10 dark:border-white/10">
               <div className="w-6 h-6 rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center">
-                <User className="w-3.5 h-3.5 text-white" />
+                <User className="w-3.5 h-3.5 text-slate-900 dark:text-white" />
               </div>
-              <span className="text-sm text-gray-300 font-medium max-w-[120px] truncate">
+              <span className="text-sm text-slate-700 dark:text-gray-300 font-medium max-w-[120px] truncate">
                 {user?.displayName || user?.email?.split('@')[0] || 'User'}
               </span>
               <Shield className="w-3 h-3 text-emerald-400" />

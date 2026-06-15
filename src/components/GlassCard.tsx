@@ -13,9 +13,9 @@ export default function GlassCard({ children, className = '', hover = false, glo
     <motion.div
       className={`
         relative rounded-2xl 
-        bg-white/[0.03] dark:bg-white/[0.03] light:bg-white/80
+        bg-slate-900/[0.03] dark:bg-white/[0.03] dark:bg-slate-900/[0.03] dark:bg-white/[0.03] light:bg-white/80
         backdrop-blur-xl 
-        border border-white/[0.08] dark:border-white/[0.08] light:border-gray-200
+        border border-slate-900/[0.08] dark:border-white/[0.08] dark:border-slate-900/[0.08] dark:border-white/[0.08] light:border-gray-200
         shadow-xl
         ${glow ? 'shadow-purple-500/10' : ''}
         ${hover ? 'transition-all duration-300 hover:bg-white/[0.06] hover:border-purple-500/30 hover:shadow-purple-500/20' : ''}

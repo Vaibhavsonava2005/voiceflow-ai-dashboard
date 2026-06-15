@@ -14,7 +14,7 @@ export default function TranscriptPanel() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
-          <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-3">
+          <div className="w-16 h-16 rounded-2xl bg-slate-900/5 dark:bg-white/5 flex items-center justify-center mb-3">
             <svg className="w-8 h-8 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
               <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
