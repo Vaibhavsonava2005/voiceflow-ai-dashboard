@@ -1,156 +1,61 @@
-# VoiceFlow AI Dashboard
+# VoiceFlow AI Dashboard 🎙️🌊
 
-> 🎤 AI-powered real-time speech transcription dashboard built with React, Vite, Nhost Auth, and Deepgram.
+![VoiceFlow AI Dashboard](https://voiceflow-ai-dashboard.vercel.app/pwa-512x512.png)
 
-![VoiceFlow AI](./public/pwa-512x512.png)
+A highly advanced, production-ready Real-Time Speech-to-Text intelligence dashboard built with modern web technologies. VoiceFlow AI provides a seamless, glassmorphic UI and integrates flawlessly with Nhost for authentication and Deepgram for lightning-fast speech recognition.
+
+## 🚀 Live Demo
+
+**[VoiceFlow AI Live Deployment](https://voiceflow-ai-dashboard.vercel.app)**
 
 ## ✨ Features
 
-- **🔐 Nhost Authentication** — Sign up, login, logout with session persistence
-- **🎙️ Real-Time Speech-to-Text** — Deepgram Nova-2 live streaming transcription
-- **📝 Transcript Management** — Copy, download (TXT), clear, and history
-- **📊 Live Statistics** — Word count, character count, speaking timer
-- **🌐 Connection Status** — Real-time WebSocket status indicator
-- **🌓 Dark/Light Mode** — Toggle with localStorage persistence
-- **📱 PWA Installable** — Install on mobile/desktop as native app
-- **🎨 Glassmorphism UI** — Premium SaaS-quality design with Framer Motion animations
-- **📱 Responsive** — Full mobile layout support
+- **Real-Time Speech-to-Text Streaming**: Powered by Deepgram's Nova-2 model via WebSocket for near-instantaneous transcription.
+- **Secure Authentication**: Robust user authentication and session management using Nhost v4.
+- **Glassmorphic UI**: A stunning, animated, and responsive user interface built with Tailwind CSS and Framer Motion.
+- **Dark Mode Support**: Context-aware theme switching seamlessly integrated into the dashboard.
+- **Progressive Web App (PWA)**: Fully installable as an offline-capable PWA on both mobile and desktop.
+- **Performance Optimized**: Built with Vite and React 18, utilizing aggressive caching and chunk splitting for maximum speed.
 
-## 🛠 Tech Stack
+## 🛠️ Technology Stack
 
-| Category | Technology |
-|----------|-----------|
-| Frontend | React 18 + TypeScript |
-| Build | Vite |
-| Styling | Tailwind CSS v4 |
-| Animation | Framer Motion |
-| Auth | Nhost (nhost-js) |
-| Speech | Deepgram Live Streaming API |
-| Routing | React Router DOM |
-| Icons | Lucide React |
-| Notifications | React Hot Toast |
-| PWA | vite-plugin-pwa |
+- **Frontend Framework**: React 18 & TypeScript
+- **Build Tool**: Vite
+- **Authentication & Backend**: Nhost / PostgreSQL
+- **Speech Intelligence**: Deepgram Live API
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **PWA**: vite-plugin-pwa
 
-## 🚀 Quick Start
+## ⚙️ Local Development
 
-### Prerequisites
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Vaibhavsonava2005/voiceflow-ai-dashboard.git
+   cd voiceflow-ai-dashboard
+   ```
 
-- Node.js 18+
-- npm 9+
-- A [Nhost](https://nhost.io) account (free tier)
-- A [Deepgram](https://deepgram.com) account (free tier)
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-### 1. Clone & Install
+3. **Environment Setup:**
+   Create a `.env` file in the root directory and add your keys:
+   ```env
+   VITE_NHOST_SUBDOMAIN=your_nhost_subdomain
+   VITE_NHOST_REGION=your_nhost_region
+   VITE_DEEPGRAM_API_KEY=your_deepgram_api_key
+   ```
 
-```bash
-cd voiceflow-ai-dashboard
-npm install
-```
+4. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
 
-### 2. Set Up Nhost
+---
 
-1. Go to [nhost.io](https://nhost.io) and create a free project
-2. Go to your project dashboard → **Settings**
-3. Copy your **Subdomain** and **Region**
-4. *(Optional)* Go to **Authentication → Settings** and disable "Require verified emails" for easier testing
-
-### 3. Set Up Deepgram
-
-1. Go to [deepgram.com](https://deepgram.com) and create a free account
-2. Go to **API Keys** in the dashboard
-3. Create a new API key with **Member** permissions
-4. Copy the key
-
-### 4. Configure Environment
-
-Copy `.env.example` to `.env` and fill in your values:
-
-```bash
-cp .env.example .env
-```
-
-```env
-VITE_NHOST_SUBDOMAIN=your-nhost-subdomain
-VITE_NHOST_REGION=us-east-1
-VITE_DEEPGRAM_API_KEY=your-deepgram-api-key
-```
-
-### 5. Run Locally
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:5173](http://localhost:5173) in your browser.
-
-## 📁 Project Structure
-
-```
-src/
-├── auth/
-│   └── ProtectedRoute.tsx      # Route guard
-├── components/
-│   ├── ConnectionStatus.tsx     # WebSocket status indicator
-│   ├── GlassCard.tsx           # Glassmorphism card
-│   ├── LoadingSpinner.tsx      # Animated spinner
-│   ├── Navbar.tsx              # Top navigation
-│   ├── SpeakingTimer.tsx       # Recording timer
-│   ├── StatsBar.tsx            # Word/char/time stats
-│   ├── TranscriptHistory.tsx   # Past sessions
-│   └── TranscriptPanel.tsx     # Live transcript display
-├── context/
-│   ├── AuthContext.tsx          # Nhost auth state
-│   ├── ThemeContext.tsx         # Dark/light mode
-│   └── TranscriptContext.tsx    # Transcript state
-├── hooks/
-│   ├── useDeepgram.ts          # Deepgram WebSocket hook
-│   └── useTimer.ts             # Speaking timer hook
-├── lib/
-│   └── nhost.ts                # Nhost client instance
-├── pages/
-│   ├── DashboardPage.tsx       # Main dashboard
-│   ├── LoginPage.tsx           # Login form
-│   └── SignUpPage.tsx          # Registration form
-├── App.tsx                      # Root component
-├── main.tsx                     # Entry point
-├── index.css                    # Global styles
-└── vite-env.d.ts               # Type declarations
-```
-
-## 🌐 Vercel Deployment
-
-### Automatic
-
-1. Push your code to GitHub
-2. Go to [vercel.com](https://vercel.com)
-3. Import your repository
-4. Add environment variables in the Vercel dashboard:
-   - `VITE_NHOST_SUBDOMAIN`
-   - `VITE_NHOST_REGION`
-   - `VITE_DEEPGRAM_API_KEY`
-5. Deploy!
-
-### Manual
-
-```bash
-npm install -g vercel
-vercel
-```
-
-## 📱 PWA Installation
-
-1. Open the deployed site in Chrome/Edge
-2. Look for the install icon in the address bar
-3. Click "Install" to add to your home screen
-4. The app works as a standalone native-like application
-
-## ⚠️ Security Note
-
-The Deepgram API key is exposed in client-side code. For production use:
-1. Create a backend proxy endpoint
-2. Use Deepgram's temporary token API (`/v1/auth/grant`)
-3. Pass short-lived tokens to the client
-
-## 📄 License
-
-MIT
+<div align="center">
+  <b>Made by Vaibhav</b>
+</div>
